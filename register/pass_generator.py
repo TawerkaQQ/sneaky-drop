@@ -24,3 +24,4 @@ def generator(len):
         password += secrets.choice(punctuation)
         password += secrets.choice(lower)
     return password
+

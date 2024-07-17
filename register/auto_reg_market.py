@@ -69,6 +69,7 @@ class MarketReg:
         gender_select.select_by_index(random_index)
 
         next2 = self.driver.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d")
+        time.sleep(1)
         next2.click()
 
         # КОСТЫЛЬ
@@ -79,8 +80,33 @@ class MarketReg:
         except:
             print("Reboot script")
 
+
         next3 = self.driver.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d")
+        time.sleep(1)
         next3.click()
+
+
+        password = gen(15)
+        print(password)
+        passw = wait.until(EC.visibility_of_element_located((By.NAME, "Passwd")))
+        time.sleep(1)
+        passw.send_keys(password)
+
+        passw1 = wait.until(EC.visibility_of_element_located((By.NAME, "PasswdAgain")))
+        time.sleep(1)
+        passw1.send_keys(password)
+
+        next4 = self.driver.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d")
+        time.sleep(1)
+        next4.click()
+
+        # time.sleep(100)
+        # tel = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "VfPpkd-NSFCdd-Ra9xwd")))
+        # time.sleep(1)
+        # tel.send_keys('98951251')
+
+
+
 
         time.sleep(1000)
         self.driver.close()
