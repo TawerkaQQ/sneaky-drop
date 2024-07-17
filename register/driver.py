@@ -5,21 +5,15 @@ sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from selenium import webdriver
 from dotenv import load_dotenv
+from config.proxy_config import get_proxy_group
 
-load_dotenv()
 
-def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False,
-                      proxy_host: str = 'PROXY_HOST1', proxy_port: str = 'PROXY_PORT1',
-                      proxy_user: str = 'PROXY_USER1', proxy_pass: str = 'PROXY_PASS'):
+def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, proxy_group: int = 0):
     chrome_options = webdriver.ChromeOptions()
 
     if use_proxy:
         print('using proxy')
-
-        proxy_host = os.getenv(proxy_host)
-        proxy_port = os.getenv(proxy_port)
-        proxy_user = os.getenv(proxy_user)
-        proxy_pass = os.getenv(proxy_pass)
+        proxy_host, proxy_port, proxy_user, proxy_pass = get_proxy_group(proxy_group)
         manifest_json = """
         {
             "version": "1.0.0",
@@ -71,14 +65,13 @@ def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False,
                     ['blocking']
         );
         """ % (proxy_host, proxy_port, proxy_user, proxy_pass)
-        print(proxy_host, proxy_port, proxy_user, proxy_pass)
-        #plugin_path = os.path.abspath(os.path.join(os.getcwd(),os.pardir))
+        
         plugin_path = os.path.abspath(os.path.join(os.getcwd(), 'config'))
         plugin_file = 'proxy_auth_plugin.zip'
+        print(os.path.join(plugin_path, plugin_file))
         with zipfile.ZipFile(os.path.join(plugin_path, plugin_file), 'w') as zp:
             zp.writestr('manifest.json', manifest_json)
             zp.writestr('background.js', background_js)
-        print(os.path.join(plugin_path, plugin_file))
         chrome_options.add_extension(os.path.join(plugin_path, plugin_file))
 
     if use_user_agent:
