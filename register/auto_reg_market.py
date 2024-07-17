@@ -1,6 +1,7 @@
 import datetime
 import time
 import random
+import os
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -8,20 +9,23 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
+from dotenv import load_dotenv
 
 from pass_generator import generator as gen
 from driver import get_chrome_driver
 
+load_dotenv()
+
 
 class MarketReg:
+    google_mail_register_url = os.getenv('GOOGLE_MAIL_REGISTER_URL')
     def __init__(self):
-        self.driver = get_chrome_driver(use_proxy=True, use_user_agent=True)
+        self.driver = get_chrome_driver(use_proxy=True, use_user_agent=False)
         self.fake = Faker("ru_RU")
 
     def gmail_reg(self):
         wait = WebDriverWait(self.driver, 10)
-        self.driver.get(
-            "https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmail.google.com%2Fmail&ec=GAlAFw&hl=ru&service=mail&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S1493690269%3A1721053389183545&ddm=0")
+        self.driver.get(MarketReg.google_mail_register_url)
 
         elem = self.driver.find_element(By.CLASS_NAME, "Xb9hP")
         elem = (elem.find_element(By.XPATH, "//input[@data-initial-value]"))
