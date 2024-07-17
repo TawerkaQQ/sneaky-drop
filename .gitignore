@@ -2,7 +2,7 @@ venv/
 
 .idea/
 
-register/__pycache__
+register/__pycache__/
 
 .env
 
