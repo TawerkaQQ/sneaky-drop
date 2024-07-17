@@ -2,6 +2,8 @@ import datetime
 import time
 import random
 import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -26,7 +28,7 @@ class MarketReg:
     def gmail_reg(self):
         wait = WebDriverWait(self.driver, 10)
         self.driver.get(MarketReg.google_mail_register_url)
-
+        time.sleep(100000)
         elem = self.driver.find_element(By.CLASS_NAME, "Xb9hP")
         elem = (elem.find_element(By.XPATH, "//input[@data-initial-value]"))
         time.sleep(1)

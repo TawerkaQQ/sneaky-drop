@@ -3,6 +3,10 @@ venv/
 .idea/
 
 register/__pycache__/
+db/__pycache__/
+
+
+config/proxy_auth_plugin.zip
 
 .env
 
