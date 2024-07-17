@@ -65,11 +65,12 @@ def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False,
         );
         """ % (proxy_host, proxy_port, proxy_user, proxy_pass)
 
+        plugin_path = os.path.abspath(os.path.join(os.getcwd(), os.pardir))
         plugin_file = 'proxy_auth_plugin.zip'
-        with zipfile.ZipFile(plugin_file, 'w') as zp:
+        with zipfile.ZipFile(os.path.join(plugin_path, plugin_file), 'w') as zp:
             zp.writestr('manifest.json', manifest_json)
             zp.writestr('background.js', background_js)
-        chrome_options.add_extension(plugin_file)
+        chrome_options.add_extension(os.path.join(plugin_path, plugin_file))
 
     if use_user_agent:
         pass
