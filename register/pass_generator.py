@@ -1,7 +1,6 @@
 import string
 import secrets
 import random
-# import pyperclip
 
 
 def generator(len):
@@ -13,10 +12,10 @@ def generator(len):
     all = upper+lower+digits+punctuation
 
     password_len = len
-    part1 = round(password_len * (30 / 100))#letters %60
-    part2 = round(password_len * (20 / 100))#digits+punc %40
+    part1 = round(password_len * (30 / 100)) #letters %60
+    part2 = round(password_len * (20 / 100)) #digits+punc %40
 
-    password=""
+    password = ""
     for i in range(part1):
         password += secrets.choice(upper)
         password += secrets.choice(digits)

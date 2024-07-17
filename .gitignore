@@ -1,0 +1,9 @@
+venv/
+
+.idea/
+
+register/__pycache__/
+
+.env
+
+chrome_driver/

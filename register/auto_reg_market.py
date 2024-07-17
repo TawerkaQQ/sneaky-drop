@@ -10,23 +10,18 @@ from selenium.webdriver.support import expected_conditions as EC
 from faker import Faker
 
 from pass_generator import generator as gen
+from driver import get_chrome_driver
 
-class Market_reg:
+
+class MarketReg:
     def __init__(self):
-        self.driver = webdriver.Chrome()
-        # self.driver = self.setup_options()
+        self.driver = get_chrome_driver(use_proxy=True, use_user_agent=True)
         self.fake = Faker("ru_RU")
-
-    # def setup_options(self):
-    #     self.options = webdriver.ChromeOptions()
-    #     # self.options.add_argument('--headless')
-    #     self.options.add_argument('--disable-dev-shm-usage')
-    #     self.driver = webdriver.Chrome(options=self.options)
-    #     return self.driver
 
     def gmail_reg(self):
         wait = WebDriverWait(self.driver, 10)
-        self.driver.get("https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmail.google.com%2Fmail&ec=GAlAFw&hl=ru&service=mail&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S1493690269%3A1721053389183545&ddm=0")
+        self.driver.get(
+            "https://accounts.google.com/v3/signin/identifier?authuser=0&continue=https%3A%2F%2Fmail.google.com%2Fmail&ec=GAlAFw&hl=ru&service=mail&flowName=GlifWebSignIn&flowEntry=AddSession&dsh=S1493690269%3A1721053389183545&ddm=0")
 
         elem = self.driver.find_element(By.CLASS_NAME, "Xb9hP")
         elem = (elem.find_element(By.XPATH, "//input[@data-initial-value]"))
@@ -59,7 +54,7 @@ class Market_reg:
         day_field.send_keys(random.randint(1, 30))
 
         year_field = wait.until(EC.visibility_of_element_located((By.ID, "year")))
-        year_field.send_keys(random.randint(1980, int(datetime.datetime.today().year))-15)
+        year_field.send_keys(random.randint(1980, int(datetime.datetime.today().year)) - 15)
 
         month = self.driver.find_element(By.CLASS_NAME, "gNnnTd")
         month_select = Select(month)
@@ -76,7 +71,7 @@ class Market_reg:
         next2 = self.driver.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d")
         next2.click()
 
-        #КОСТЫЛЬ
+        # КОСТЫЛЬ
         try:
             gmail = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "jOkGjb")))
             gmail.click()
@@ -87,13 +82,9 @@ class Market_reg:
         next3 = self.driver.find_element(By.CLASS_NAME, "VfPpkd-vQzf8d")
         next3.click()
 
-
-
-
         time.sleep(1000)
         self.driver.close()
-
-        return None
+        return self
 
     def ozon_reg(self):
         pass
@@ -104,10 +95,8 @@ class Market_reg:
     def yandex_reg(self):
         pass
 
-    pass
-
 
 if __name__ == '__main__':
-    market = Market_reg()
+    market = MarketReg()
     # market.test()
     market.gmail_reg()
