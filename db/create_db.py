@@ -1,8 +1,12 @@
 import os
+import sys
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from sqlalchemy import create_engine
+from sqlalchemy import create_engine, MetaData
+from models import Base
+from config.db_config import DB_HOST, DB_PORT, DB_USER, DB_PASS, DB_NAME
 
-db_name = 'sneaky-drop'
-db_path = os.path.join(os.getcwd(), db_name)
+dsn = f'postgresql://{DB_USER}:{DB_PASS}@{DB_HOST}:{DB_PORT}/{DB_NAME}'
+engine = create_engine(dsn, echo=True)
 
-engine = create_engine(f'sqlite:///{db_path}', echo=True)
+Base.metadata.create_all(engine)
