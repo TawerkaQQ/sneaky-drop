@@ -16,12 +16,13 @@ from pass_generator import generator as gen
 from driver import get_chrome_driver
 from config.url_config import GOOGLE_MAIL_REGISTER_URL
 
-class MarketReg:
+
+class Gmail_reg:
     def __init__(self):
         self.driver = get_chrome_driver(use_proxy=True, use_user_agent=False)
         self.fake = Faker("ru_RU")
 
-    def gmail_reg(self):
+    def gmail_reg(self, tel_number: str):
         wait = WebDriverWait(self.driver, 10)
         self.driver.get(GOOGLE_MAIL_REGISTER_URL)
         time.sleep(2)
@@ -102,6 +103,9 @@ class MarketReg:
         time.sleep(1)
         next4.click()
 
+        ## Дописать ввод номера и нажатие кнопки
+
+
         # time.sleep(100)
         # tel = wait.until(EC.visibility_of_element_located((By.CLASS_NAME, "VfPpkd-NSFCdd-Ra9xwd")))
         # time.sleep(1)
@@ -125,6 +129,6 @@ class MarketReg:
 
 
 if __name__ == '__main__':
-    market = MarketReg()
+    market = Gmail_reg()
     # market.test()
-    market.gmail_reg()
+    market.gmail_reg('')
