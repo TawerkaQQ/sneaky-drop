@@ -15,7 +15,7 @@ from faker import Faker
 from bs4 import BeautifulSoup
 
 # from pass_generator import generator as gen
-from driver import get_chrome_driver
+from .driver import get_chrome_driver
 from config.url_config import GOOGLE_MAIL_REGISTER_URL, OZON_URL
 
 class OzonReg():
@@ -27,7 +27,7 @@ class OzonReg():
         self.driver.get(OZON_URL)
         self.driver.maximize_window()
         time.sleep(4)
-        come_in = self.find_come_in_element()
+        self.find_come_in_element()
 
     def find_come_in_element(self):
         element = self.driver.execute_script("""
@@ -50,13 +50,6 @@ class OzonReg():
                             var inputElement = document.evaluate("//input", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
                             return inputElement.singleNodeValue;
                         """)
-            time.sleep(20)
+            time.sleep(5)
             element.send_keys('11111')
             time.sleep(10000)
-
-
-
-if __name__ == '__main__':
-
-    sel_ozon = OzonReg()
-    sel_ozon.ozon_reg()
