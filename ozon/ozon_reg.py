@@ -12,9 +12,7 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from faker import Faker
-from bs4 import BeautifulSoup
 
-# from pass_generator import generator as gen
 from .driver import get_chrome_driver
 from config.url_config import GOOGLE_MAIL_REGISTER_URL, OZON_URL
 
