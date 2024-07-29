@@ -5,6 +5,7 @@ venv/
 register/__pycache__/
 db/__pycache__/
 config/__pycache__/
+ozon/__pycache__/
 
 config/proxy_auth_plugin.zip
 
