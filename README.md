@@ -24,3 +24,13 @@ interface.insert_into_mail_account(phone_number='888888888', name='Bobra', surna
 ```python
 interface.delete_from_mail_account_by_phone('888888888')
 ```
+---
+## Docker
+Создание образа
+```commandline
+docker build --tag 'ozon' .
+```
+Запуск из контейнера
+```commandline
+docker run 'ozon'
+```
