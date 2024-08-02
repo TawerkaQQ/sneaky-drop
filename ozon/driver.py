@@ -3,13 +3,19 @@ import zipfile
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from fake_useragent import UserAgent
 from selenium import webdriver
 from dotenv import load_dotenv
 from config.proxy_config import get_proxy_group
 
 
 def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, proxy_group: int = 0):
+    user_agent = UserAgent()
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    # chrome_options.add_argument("--headless")
+    chrome_options.add_argument(f'user-agent={user_agent.random}')
+
 
     if use_proxy:
         print('using proxy')
@@ -77,7 +83,7 @@ def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, pro
     if use_user_agent:
         pass
 
-    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+
 
     driver = webdriver.Chrome(options=chrome_options)
     return driver

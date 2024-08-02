@@ -20,13 +20,17 @@ from config.url_config import GOOGLE_MAIL_REGISTER_URL, OZON_URL
 
 class OzonReg():
     def __init__(self):
-        self.driver = get_chrome_driver(use_proxy=True, use_user_agent=False)
+        self.driver = get_chrome_driver(use_proxy=True, use_user_agent=True)
         self.wait = WebDriverWait(self.driver, 20)
 
     def ozon_reg(self):
         self.driver.get(OZON_URL)
         self.driver.maximize_window()
         time.sleep(4)
+        reload_page = self.driver.find_element(By.XPATH, "//button[@class='rb']")
+        time.sleep(1)
+        reload_page.click()
+        time.sleep(15)
         come_in = self.find_come_in_element()
 
     def find_come_in_element(self):
@@ -51,9 +55,37 @@ class OzonReg():
                             return inputElement.singleNodeValue;
                         """)
             time.sleep(20)
-            element.send_keys('11111')
-            time.sleep(10000)
+            element.send_keys('999 694 46 82')
+            time.sleep(4)
+            # self.driver.switch_to.frame(iframe)
 
+            sign_in = self.driver.execute_script(
+                """
+                            var inputElement = document.evaluate("//button[@type='submit']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+                            return inputElement.singleNodeValue;
+                                    """
+                )
+            sign_in.click()
+            time.sleep(4)
+
+            i_agree = self.driver.execute_script(
+                """
+                            var inputElement = document.evaluate("//input[@type='checkbox']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+                            return inputElement.singleNodeValue;
+                                    """
+            )
+            time.sleep(4)
+            i_agree.click()
+
+            # get_new_code = self.driver.execute_script(
+            #     """
+            #                 var inputElement = document.evaluate("//div[@class='c806-a']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
+            #                 return inputElement.singleNodeValue;
+            #                         """
+            # )
+            # time.sleep(120)
+            # get_new_code.click()
+            time.sleep(4000)
 
 
 if __name__ == '__main__':

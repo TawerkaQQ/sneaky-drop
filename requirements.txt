@@ -21,3 +21,6 @@ typing_extensions==4.12.2
 urllib3==2.2.2
 websocket-client==1.8.0
 wsproto==1.2.0
+fake-useragent==1.5.1
+beautifulsoup4==4.12.3
+
