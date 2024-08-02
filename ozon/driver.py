@@ -10,12 +10,9 @@ from config.proxy_config import get_proxy_group
 
 
 def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, proxy_group: int = 0):
-    user_agent = UserAgent()
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument('--disable-blink-features=AutomationControlled')
     # chrome_options.add_argument("--headless")
-    chrome_options.add_argument(f'user-agent={user_agent.random}')
-
 
     if use_proxy:
         print('using proxy')
@@ -81,8 +78,8 @@ def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, pro
         chrome_options.add_extension(os.path.join(plugin_path, plugin_file))
 
     if use_user_agent:
-        pass
-
+        user_agent = UserAgent()
+        chrome_options.add_argument(f'user-agent={user_agent.random}')
 
 
     driver = webdriver.Chrome(options=chrome_options)
