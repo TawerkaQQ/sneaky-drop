@@ -12,10 +12,8 @@ from selenium.webdriver.support.ui import WebDriverWait, Select
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.action_chains import ActionChains
 from faker import Faker
-from bs4 import BeautifulSoup
 
-# from pass_generator import generator as gen
-from driver import get_chrome_driver
+from .driver import get_chrome_driver
 from config.url_config import GOOGLE_MAIL_REGISTER_URL, OZON_URL
 
 class OzonReg():
@@ -27,12 +25,14 @@ class OzonReg():
         self.driver.get(OZON_URL)
         self.driver.maximize_window()
         time.sleep(4)
+
         # reload_page = self.driver.find_element(By.XPATH, "//button[@class='rb']")
         # time.sleep(1)
         # reload_page.click()
         self.driver.refresh()
         time.sleep(15)
         come_in = self.find_come_in_element()
+
 
     def find_come_in_element(self):
         element = self.driver.execute_script(JSParser.search_element_script(tag='span', contain_text='Войти'))
@@ -45,6 +45,7 @@ class OzonReg():
             time.sleep(2)
             iframe = self.driver.execute_script(JSParser.search_element_script(tag='iframe', id='authFrame'))
             self.driver.switch_to.frame(iframe)
+
             element = self.driver.execute_script(JSParser.search_element_script('input'))
             time.sleep(20)
             element.send_keys('999 694 46 82')
