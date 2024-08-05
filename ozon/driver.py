@@ -3,12 +3,15 @@ import zipfile
 import sys
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
+from fake_useragent import UserAgent
 from selenium import webdriver
 from config.proxy_config import get_proxy_group
 
 
 def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, proxy_group: int = 0):
     chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
+    # chrome_options.add_argument("--headless")
 
     if use_proxy:
         print('using proxy')
@@ -74,9 +77,9 @@ def get_chrome_driver(use_proxy: bool = False, use_user_agent: bool = False, pro
         chrome_options.add_extension(os.path.join(plugin_path, plugin_file))
 
     if use_user_agent:
-        pass
+        user_agent = UserAgent()
+        chrome_options.add_argument(f'user-agent={user_agent.random}')
 
-    chrome_options.add_argument('--disable-blink-features=AutomationControlled')
 
     driver = webdriver.Chrome(options=chrome_options)
     return driver
