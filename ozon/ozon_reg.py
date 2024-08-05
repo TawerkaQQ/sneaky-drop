@@ -35,7 +35,7 @@ class OzonReg():
         come_in = self.find_come_in_element()
 
     def find_come_in_element(self):
-        element = self.driver.execute_script( JSParser.search_element_script(tag='span', contain_text='Войти') )
+        element = self.driver.execute_script(JSParser.search_element_script(tag='span', contain_text='Войти'))
         if not element:
             print('no')
             time.sleep(400)
@@ -43,14 +43,14 @@ class OzonReg():
             time.sleep(3)
             element.click()
             time.sleep(2)
-            iframe = self.driver.execute_script( JSParser.search_element_script(tag='iframe', id='authFrame') )
+            iframe = self.driver.execute_script(JSParser.search_element_script(tag='iframe', id='authFrame'))
             self.driver.switch_to.frame(iframe)
-            element = self.driver.execute_script( JSParser.search_element_script('input') )
+            element = self.driver.execute_script(JSParser.search_element_script('input'))
             time.sleep(20)
             element.send_keys('999 694 46 82')
             time.sleep(4)
             # self.driver.switch_to.frame(iframe)
-            sign_in = self.driver.execute_script( JSParser.search_element_script(tag='button', add_params=True, type='submit') )
+            sign_in = self.driver.execute_script(JSParser.search_element_script(tag='button', add_params=True, type='submit') )
             # sign_in = self.driver.execute_script("""
             #                 var inputElement = document.evaluate("//button[@type='submit']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
             #                 return inputElement.singleNodeValue;
@@ -59,7 +59,7 @@ class OzonReg():
             sign_in.click()
             time.sleep(4)
 
-            i_agree = self.driver.execute_script( JSParser.search_element_script(tag='input', add_params=True, type='checkbox') )
+            i_agree = self.driver.execute_script(JSParser.search_element_script(tag='input', add_params=True, type='checkbox') )
             # i_agree = self.driver.execute_script(
             #     """
             #                 var inputElement = document.evaluate("//input[@type='checkbox']", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null);
